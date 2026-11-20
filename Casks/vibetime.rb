@@ -4,21 +4,21 @@ cask "vibetime" do
 
   on_macos do
     on_arm do
-      sha256 "b650cf5976a7390b7bb0bd933a66a3d7cf3390968c831a2cf9b869745db0ecd1"
+      sha256 "40b6faf2a47682d27e066012b123de35e37e3748b39ffed1381762b399c5bd8b"
       url "https://github.com/IzieStratt/vibetime/releases/download/v#{version}/vibetime_#{version}_darwin_arm64.tar.gz"
     end
     on_intel do
-      sha256 "9f1f92a2b10656a004b2592c2b959ac13ee24069c6edf827d83fb470792e64ff"
+      sha256 "12059631705101d79cbebb06e013d3ed67ba543914926d425bbb8ea4aa91ecf4"
       url "https://github.com/IzieStratt/vibetime/releases/download/v#{version}/vibetime_#{version}_darwin_amd64.tar.gz"
     end
   end
   on_linux do
     on_arm do
-      sha256 "6372c6da3fc08f173f8edb7087a19db7a3a9f07ee405a77680629aeb42ed8143"
+      sha256 "edd03365b6aaa5fd4b5f7a4dbe397eff557d56e95976f96a8f53af28b8079115"
       url "https://github.com/IzieStratt/vibetime/releases/download/v#{version}/vibetime_#{version}_linux_arm64.tar.gz"
     end
     on_intel do
-      sha256 "d9ef98451c7d91ee102d95428f3b1831a44d9e73f83945a4ea3e347cd1fab067"
+      sha256 "df83440e136e8481d1664533c66ef11a124951d755215fc9709d6067c093af7a"
       url "https://github.com/IzieStratt/vibetime/releases/download/v#{version}/vibetime_#{version}_linux_amd64.tar.gz"
     end
   end
@@ -32,6 +32,12 @@ cask "vibetime" do
   end
 
   binary "vibetime"
+
+  postflight_steps do
+    on_macos do
+      run "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "{{staged_path}}/vibetime"]
+    end
+  end
 
   zap :not_required
 end
